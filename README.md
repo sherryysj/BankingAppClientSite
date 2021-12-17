@@ -1,14 +1,5 @@
-# RMIT-WDT-Assignment2 Group # 29
-**Group member details**\
-Shujie Yang - s3704732\
-Siyuan Cao - s3502747
-
 **About this project**\
 This project is developed based on the sample code of RMIT WDT-2021 flexible semester, Tourtial Week6 - "McbaExampleWithLogin". We have a good understanding of the code structures and the techniques used in this template.
-
-**About branching**\
-We have created and used different branches for each part of this Assignment, e.g. 'Pass-part', 'HD-part'.
-As recommended, the Admin site and API are developed as a separated project which is located in the 'Distinction-part' branch of this repository, where as the Client site is in the master branch.
 
 **The use of Records**\
 In this project Records are used to replace regular Model classes for two main reasons. \
@@ -27,11 +18,6 @@ The modified login IDs are:\
 12345678 for Customer 2100,\
 23456789 for Customer 2200,\
 34567890 for Customer 2300.
-
-**Admin site Login details**\
-As stated in the Assignment specification, the admin login is hardcoded in the 'Bank Web API' project. To login to the Admin site please use:\
-Username: 123\
-Password: abc123
 
 **Payees**\
 Two payees are seeded into the database, which are:\
