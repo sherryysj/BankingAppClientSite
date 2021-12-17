@@ -1,0 +1,52 @@
+﻿@model BillPay
+@{
+    ViewData["Title"] = "BillPayModify";
+}
+
+<h1 class="display-4">Modify Bill Pay</h1>
+
+<h3>Account Number: @Model.AccountNumber</h3>
+<h3>PayeeId: @Model.PayeeID</h3>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="BillPayModify">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <br />
+            <div><input type="hidden" id="BillPayID" name="BillPayID" value="@Model.BillPayID"></div>
+            <div class="form-group">
+                <label for="Amount" class="control-label">Amount</label>
+                <input id="Amount" name="Amount" class="form-control" value="@ViewBag.Amount?.ToString("0.00")"
+                       data-val="true" data-val-number="The field Amount must be a number."
+                       data-val-required="The Amount field is required." />
+                @Html.ValidationMessage("Amount", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="ScheduleDate" class="control-label">Schedule Date:</label>
+                <input id="ScheduleDate" name="ScheduleDate" data-val="true" type="date" value="@Model.ScheduleDate" min="2021-01-25"
+                       data-val-required="The Schedule Date field is required." />
+                @Html.ValidationMessage("ScheduleDate", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="Period" class="control-label">Period:</label>
+                <select id="Period" name="Period" data-val="true" value="@Model.Period" class="form-control" required>
+                    <option value=""></option>
+                    <option value="O">One Time</option>
+                    <option value="M">Monthly</option>
+                    <option value="A">Annually</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save Information" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="BillPayState" asp-route-id="@Model.AccountNumber">Back to BillPay Statement</a>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
