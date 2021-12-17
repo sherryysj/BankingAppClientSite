@@ -1,0 +1,62 @@
+﻿@model Account
+@{
+    ViewData["Title"] = "BillPayState";
+}
+
+<div>
+    <h1 class="display-4">Your Billpays through account @Model.AccountNumber</h1>
+
+    <table class="table">
+        <tr>
+            <th>@Html.DisplayNameFor(x => x.BillPays[0].BillPayID)</th>
+            <th>@Html.DisplayNameFor(x => x.BillPays[0].Payee.PayeeName)</th>
+            <th>@Html.DisplayNameFor(x => x.BillPays[0].PayeeID)</th>
+            <th>@Html.DisplayNameFor(x => x.BillPays[0].Amount)</th>
+            <th>@Html.DisplayNameFor(x => x.BillPays[0].ScheduleDate)</th>
+            <th>@Html.DisplayNameFor(x => x.BillPays[0].Period)</th>
+            <th>@Html.DisplayNameFor(x => x.BillPays[0].Active)</th>
+            <th></th>
+        </tr>
+        @foreach (var billPay in Model.BillPays)
+        {
+            <tr>
+                <td>@Html.DisplayFor(x => billPay.BillPayID)</td>
+                <td>@Html.DisplayFor(x => billPay.Payee.PayeeName)</td>
+                <td>@Html.DisplayFor(x => billPay.PayeeID)</td>
+                <td>@Html.DisplayFor(x => billPay.Amount)</td>
+                <td>@Html.DisplayFor(x => billPay.ScheduleDate)</td>
+                @if (billPay.Period == "O")
+                {
+                    <td>One Time</td>
+                } else if (billPay.Period == "M")
+                {
+                    <td>Monthly</td>
+                } else
+                {
+                    <td>Annually</td>
+                }
+                @if (billPay.Active){
+                    <td>Active</td>
+                } else
+                {
+                    <td>Closed</td>
+                }
+            <td>
+                <a class="btn btn-primary"
+                   asp-action="BillPayModify" asp-route-id="@billPay.BillPayID">Modify</a>
+                @{
+                    var parms = new Dictionary<string, string>
+                    {
+                        { "idString", @billPay.BillPayID.ToString() },
+                        { "accountNumberString", @Model.AccountNumber.ToString() }
+                    };
+                }
+                <a class="btn btn-primary"
+                   asp-action="BillPayDelete" asp-all-route-data=@parms>Delete</a>
+            </td>
+            </tr>
+        }
+    </table>
+    <br />
+
+</div>

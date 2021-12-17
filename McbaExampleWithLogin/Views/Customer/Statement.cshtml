@@ -1,0 +1,40 @@
+﻿@model IPagedList<Transaction>
+@{
+    ViewData["Title"] = "Statement";
+    ViewBag.Title = "Transation List";
+}
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<h1 class="display-4">Account Number @ViewBag.AccountForStatement.AccountNumber (@ViewBag.AccountForStatement.AccountType)</h1>
+
+<h3>Account balance: $@ViewBag.AccountForStatement.Balance</h3>
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(x => x[0].AccountNumber)</th>
+        <th>@Html.DisplayNameFor(x => x[0].TransactionType)</th>
+        <th>@Html.DisplayNameFor(x => x[0].Amount)</th>
+        <th>@Html.DisplayNameFor(x => x[0].DestinationAccountNumber)</th>
+        <th>@Html.DisplayNameFor(x => x[0].Comment)</th>
+        <th>@Html.DisplayNameFor(x => x[0].ModifyDate)</th>
+        <th></th>
+    </tr>
+    @foreach (var transaction in Model)
+    {
+        <tr>
+            <td>@transaction.AccountNumber</td>
+            <td>@transaction.TransactionType</td>
+            <td>@transaction.Amount</td>
+            <td>@transaction.DestinationAccountNumber</td>
+            <td>@transaction.Comment</td>
+            <td>@transaction.ModifyDate</td>
+        </tr>
+    }
+</table>
+
+@Html.PagedListPager(Model, page => Url.Action("Statement", new { id = @ViewBag.AccountForStatement.AccountNumber, page }))
+
+<div>
+    <a asp-action="Index">Back to Accounts</a>
+</div>

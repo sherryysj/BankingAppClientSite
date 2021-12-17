@@ -1,0 +1,65 @@
+﻿@model Customer
+@{
+    ViewData["Title"] = "PayBill";
+}
+
+<h1 class="display-4">Schedule Bill Pay</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="PayBill">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <br />
+            <div class="form-group">
+                <label for="AccountNumber" class="control-label">From Account:</label>
+                <select id="AccountNumber" name="AccountNumber" data-val="true" class="form-control" required>
+                    <option value=""></option>
+                    @foreach (var account in Model.Accounts)
+                    {
+                        <option value="@account.AccountNumber">@account.AccountNumber</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="PayeeID" class="control-label">To Payee: </label>
+                <input id="PayeeID" name="PayeeID" class="form-control"
+                       data-val="true" data-val-number="The field Payee ID must be a number."
+                       data-val-required="The Payee ID field is required." />
+                @Html.ValidationMessage("PayeeID", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="Amount" class="control-label">Amount</label>
+                <input id="Amount" name="Amount" class="form-control" value="@ViewBag.Amount?.ToString("0.00")"
+                       data-val="true" data-val-number="The field Amount must be a number."
+                       data-val-required="The Amount field is required." />
+                @Html.ValidationMessage("Amount", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="Period" class="control-label">Period:</label>
+                <select id="Period" name="Period" data-val="true" value="M" class="form-control" required>
+                    <option value=""></option>
+                    <option value="O">One Time</option>
+                    <option value="M">Monthly</option>
+                    <option value="A">Annually</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="ScheduleDate" class="control-label">Schedule Date:</label>
+                <input id="ScheduleDate" name="ScheduleDate" data-val="true" type="date" value="2021-01-25" min="2021-01-25"
+                       data-val-required="The Schedule Date field is required." />
+                @Html.ValidationMessage("ScheduleDate", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save Information" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to Accounts</a>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
